@@ -16,14 +16,14 @@
     </Control.Background>
     <Grid x:Name="MainGrid">
         <WebBrowser x:Name="Browser" Margin="0,0,0,0.5"/>
-        <Image Margin="0,75,0,375" Source="curve-shape-kiosk-top.png" Stretch="Fill" HorizontalAlignment="Center"
+        <Image Margin="0,75,0,375" Source="Properties/curve-shape-kiosk-top.png" Stretch="Fill" HorizontalAlignment="Center"
                VerticalAlignment="Top" Height="75"/>
         <Rectangle Fill="White" Height="75" VerticalAlignment="Top"/>
         <Label Margin="0,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="36"
                RenderTransformOrigin="0.511,0.268" 
                Content="{Binding Path=Now, Mode=OneWay, Source={StaticResource Ticker}, StringFormat={}{0:t}}"/>
-        <Image Margin="0" Source="bg.png" RenderTransformOrigin="0.5,1" Stretch="Fill"/>
+        <Image Margin="0" Source="Properties/bg.png" RenderTransformOrigin="0.5,1" Stretch="Fill"/>
         <local:AlignableWrapPanel x:Name="MainWrapPanel" Margin="0,150,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"
                                   HorizontalContentAlignment="Center"/>
     </Grid>
