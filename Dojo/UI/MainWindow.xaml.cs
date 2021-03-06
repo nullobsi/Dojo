@@ -8,22 +8,23 @@ using Microsoft.Win32;
 
 namespace Dojo
 {
-	
 	public partial class MainWindow
 	{
-		// keep pinging for data
-		private Timer _timer;
 		// code ninjas location
 		private string _location;
+
+		// keep pinging for data
+		private Timer _timer;
 
 		public MainWindow()
 		{
 			// change WebBrowser control to use latest version of IE
-			Registry.CurrentUser.OpenSubKey("SOFTWARE", writable: true).CreateSubKey("Microsoft").CreateSubKey("Internet Explorer")
-				.CreateSubKey("Main")
-				.CreateSubKey("FeatureControl")
-				.CreateSubKey("FEATURE_BROWSER_EMULATION")
-				.SetValue(AppDomain.CurrentDomain.FriendlyName, 11001, RegistryValueKind.DWord);
+			Registry.CurrentUser.OpenSubKey("SOFTWARE", true).CreateSubKey("Microsoft")
+			        .CreateSubKey("Internet Explorer")
+			        .CreateSubKey("Main")
+			        .CreateSubKey("FeatureControl")
+			        .CreateSubKey("FEATURE_BROWSER_EMULATION")
+			        .SetValue(AppDomain.CurrentDomain.FriendlyName, 11001, RegistryValueKind.DWord);
 			InitializeComponent();
 			// log in to Dojo
 			Browser.Navigated += Browser_Navigated;
@@ -40,7 +41,9 @@ namespace Dojo
 		private void HideScriptErrors(WebBrowser wb)
 		{
 			// hack to prevent browser from popping up errors
-			dynamic val = Browser.GetType().InvokeMember("ActiveXInstance", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetProperty, null, Browser, new object[0]);
+			dynamic val = Browser.GetType().InvokeMember("ActiveXInstance",
+			                                             BindingFlags.Instance | BindingFlags.NonPublic |
+			                                             BindingFlags.GetProperty, null, Browser, new object[0]);
 			val.Silent = true;
 		}
 
@@ -64,19 +67,23 @@ namespace Dojo
 			_timer = new Timer
 			{
 				Interval = 5000.0,
-				AutoReset = true,
+				AutoReset = true
 			};
 			_timer.Elapsed += FetchDataPeriodically;
 			_timer.Start();
 			// fetch initial data
-			Browser.InvokeScript("eval", $"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
+			Browser.InvokeScript(
+				"eval",
+				$"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
 		}
 
 		private void FetchDataPeriodically(object sender, ElapsedEventArgs e)
 		{
-			Dispatcher.BeginInvoke((Action)delegate
+			Dispatcher.BeginInvoke((Action) delegate
 			{
-				Browser.InvokeScript("eval", $"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
+				Browser.InvokeScript(
+					"eval",
+					$"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
 			});
 		}
 	}

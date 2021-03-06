@@ -1,67 +1,69 @@
 <UserControl x:Class="Dojo.NinjaCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Dojo"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              Width="420" Height="165" DataContext="{Binding RelativeSource={RelativeSource Self}}">
-  <FrameworkElement.Resources>
-    <local:WPFBitmapConverter x:Key="WPFBitmapConverter"/>
-    <Style x:Key="BtnClose" TargetType="{x:Type Button}">
-      <Setter Property="Control.Background" Value="Transparent"/>
-      <Setter Property="UIElement.SnapsToDevicePixels" Value="true"/>
-      <Setter Property="Control.Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="{x:Type Button}">
-            <Grid>
-              <ContentPresenter x:Name="ContentPres" Content="{TemplateBinding ContentControl.Content}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-              <Path x:Name="ClosePath" SnapsToDevicePixels="true" ToolTip="Dismiss" Width="18" Height="17"
-                    Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" Stretch="Fill"
-                    Fill="#FFFFFF"
-                    Data="F1 M 26.9166,22.1667 L 37.9999,33.25 49.0832,22.1668 53.8332,26.9168 42.7499,38 53.8332,49.0834 49.0833,53.8334 37.9999,42.75 26.9166,53.8334 22.1666,49.0833 33.25,38 22.1667,26.9167 26.9166,22.1667 Z"/>
-              <Ellipse Width="25" Height="25" Margin="0,0,-3.5,0" HorizontalAlignment="Right" VerticalAlignment="Center"
-                       Stretch="Fill" Fill="#bd0505" Panel.ZIndex="-1"/>
-            </Grid>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-  </FrameworkElement.Resources>
-  <Grid x:Name="MainGrid">
-    <UIElement.RenderTransform>
-      <TranslateTransform x:Name="MainGridTransform"/>
-    </UIElement.RenderTransform>
-    <Image HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="20,20,0,0"
-           Panel.ZIndex="1" Source="{Binding ScanInData.Image, Converter={StaticResource WPFBitmapConverter}}"/>
-    <Rectangle Fill="White" HorizontalAlignment="Left" Height="96" Margin="10,10,0,0" VerticalAlignment="Top"
-               Width="400" RadiusX="5" RadiusY="5">
-      <UIElement.BitmapEffect>
-        <DropShadowBitmapEffect Direction="270" Softness="1" ShadowDepth="1" Opacity="0.5"/>
-      </UIElement.BitmapEffect>
-    </Rectangle>
-    <Rectangle x:Name="BottomRect" Fill="#FF0D1039" HorizontalAlignment="Center" Height="79" Margin="0,76,0,0"
-               RadiusY="5" RadiusX="5" VerticalAlignment="Top" Width="372" Panel.ZIndex="-1"/>
-    <Label HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="26"
-           Foreground="#FF506690" FontWeight="Bold" Content="{Binding Path=ScanInData.FullName}"
-           Background="{x:Null}"/>
-    <Label ContentStringFormat="h:mm tt" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top"
-           FontSize="20" Foreground="#FF506690" Content="{Binding Path=ScanInData.DateCreated}" Background="{x:Null}"/>
-    <Label x:Name="MinutesLeftLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,25,0"
-           Foreground="#FF506690" FontSize="50" FontWeight="Bold" Content="{Binding Path=ScanInData.MinutesLeft}"
-           Background="{x:Null}"/>
-    <Button Click="StartBreak" x:Name="StartButton" Content="Start" HorizontalAlignment="Left"
-            Margin="82,121,0,0" VerticalAlignment="Top" Width="39"/>
-    <xctk:IntegerUpDown x:Name="IntInput" FrameworkElement.HorizontalAlignment="Left"
-                   FrameworkElement.VerticalAlignment="Bottom" FrameworkElement.Margin="36,0,0,24" Minimum="1"
-                   MaxLength="2" Value="10"/>
-    <Label HorizontalAlignment="Left" Margin="126,111,0,0" VerticalAlignment="Top" Foreground="White"
-           FontSize="20" Content="{Binding ScanInData.BreakStatus}" Background="{x:Null}"/>
-    <Button Click="Close" x:Name="CloseBtn" Content="" HorizontalAlignment="Left" Margin="395,-3,0,0"
-            VerticalAlignment="Top" Style="{StaticResource BtnClose}" FontSize="0.01" Width="24"
-            RenderTransformOrigin="-1.298,0.653" IsCancel="true" Visibility="Hidden"/>
-    <Button Click="EndBreak" x:Name="EndBtn" Content="End" HorizontalAlignment="Left"
-            Margin="346,121,0,0" VerticalAlignment="Top" Width="39" IsEnabled="False"/>
-  </Grid>
+    <FrameworkElement.Resources>
+        <local:WPFBitmapConverter x:Key="WPFBitmapConverter" />
+        <Style x:Key="BtnClose" TargetType="{x:Type Button}">
+            <Setter Property="Control.Background" Value="Transparent" />
+            <Setter Property="UIElement.SnapsToDevicePixels" Value="true" />
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter x:Name="ContentPres" Content="{TemplateBinding ContentControl.Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Path x:Name="ClosePath" SnapsToDevicePixels="true" ToolTip="Dismiss" Width="18"
+                                  Height="17"
+                                  Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  Stretch="Fill"
+                                  Fill="#FFFFFF"
+                                  Data="F1 M 26.9166,22.1667 L 37.9999,33.25 49.0832,22.1668 53.8332,26.9168 42.7499,38 53.8332,49.0834 49.0833,53.8334 37.9999,42.75 26.9166,53.8334 22.1666,49.0833 33.25,38 22.1667,26.9167 26.9166,22.1667 Z" />
+                            <Ellipse Width="25" Height="25" Margin="0,0,-3.5,0" HorizontalAlignment="Right"
+                                     VerticalAlignment="Center"
+                                     Stretch="Fill" Fill="#bd0505" Panel.ZIndex="-1" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </FrameworkElement.Resources>
+    <Grid x:Name="MainGrid">
+        <UIElement.RenderTransform>
+            <TranslateTransform x:Name="MainGridTransform" />
+        </UIElement.RenderTransform>
+        <Image HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="20,20,0,0"
+               Panel.ZIndex="1" Source="{Binding ScanInData.Image, Converter={StaticResource WPFBitmapConverter}}" />
+        <Rectangle Fill="White" HorizontalAlignment="Left" Height="96" Margin="10,10,0,0" VerticalAlignment="Top"
+                   Width="400" RadiusX="5" RadiusY="5">
+            <UIElement.BitmapEffect>
+                <DropShadowBitmapEffect Direction="270" Softness="1" ShadowDepth="1" Opacity="0.5" />
+            </UIElement.BitmapEffect>
+        </Rectangle>
+        <Rectangle x:Name="BottomRect" Fill="#FF0D1039" HorizontalAlignment="Center" Height="79" Margin="0,76,0,0"
+                   RadiusY="5" RadiusX="5" VerticalAlignment="Top" Width="372" Panel.ZIndex="-1" />
+        <Label HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="26"
+               Foreground="#FF506690" FontWeight="Bold" Content="{Binding Path=ScanInData.FullName}"
+               Background="{x:Null}" />
+        <Label ContentStringFormat="h:mm tt" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top"
+               FontSize="20" Foreground="#FF506690" Content="{Binding Path=ScanInData.DateCreated}"
+               Background="{x:Null}" />
+        <Label x:Name="MinutesLeftLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,25,0"
+               Foreground="#FF506690" FontSize="50" FontWeight="Bold" Content="{Binding Path=ScanInData.MinutesLeft}"
+               Background="{x:Null}" />
+        <Button Click="StartBreak" x:Name="StartButton" Content="Start" HorizontalAlignment="Left"
+                Margin="82,121,0,0" VerticalAlignment="Top" Width="39" />
+        <xctk:IntegerUpDown x:Name="IntInput" FrameworkElement.HorizontalAlignment="Left"
+                            FrameworkElement.VerticalAlignment="Bottom" FrameworkElement.Margin="36,0,0,24" Minimum="1"
+                            MaxLength="2" Value="10" />
+        <Label HorizontalAlignment="Left" Margin="126,111,0,0" VerticalAlignment="Top" Foreground="White"
+               FontSize="20" Content="{Binding ScanInData.BreakStatus}" Background="{x:Null}" />
+        <Button Click="Close" x:Name="CloseBtn" Content="" HorizontalAlignment="Left" Margin="395,-3,0,0"
+                VerticalAlignment="Top" Style="{StaticResource BtnClose}" FontSize="0.01" Width="24"
+                RenderTransformOrigin="-1.298,0.653" IsCancel="true" Visibility="Hidden" />
+        <Button Click="EndBreak" x:Name="EndBtn" Content="End" HorizontalAlignment="Left"
+                Margin="346,121,0,0" VerticalAlignment="Top" Width="39" IsEnabled="False" />
+    </Grid>
 </UserControl>
