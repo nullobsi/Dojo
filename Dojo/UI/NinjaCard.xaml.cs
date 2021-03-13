@@ -45,7 +45,7 @@ namespace Dojo.UI
 			MainGrid.DataContext = this;
 		}
 
-		public ScanInData ScanInData { get; }
+		public ScanInData ScanInData { get; private set; }
 
 		private void StartBreak(object sender, RoutedEventArgs e)
 		{
@@ -81,7 +81,9 @@ namespace Dojo.UI
 			// remove from parent
 			// TODO: add restore option
 			(Parent as AlignableWrapPanel).Children.Remove(this);
-			ScanInData.Dispose();
+			ScanInData.PropertyChanged -= ScanInTick;
+			MainWindow.HideCard(ScanInData);
+			ScanInData = null;
 		}
 
 		private void EndBreak(object sender, RoutedEventArgs e)

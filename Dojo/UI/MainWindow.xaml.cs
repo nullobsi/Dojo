@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using Microsoft.Win32;
 
@@ -15,6 +17,9 @@ namespace Dojo.UI
 
 		// keep pinging for data
 		private Timer _timer;
+
+		// removed cards
+		private readonly ObservableCollection<ScanInData> hidden;
 
 		public MainWindow()
 		{
@@ -33,7 +38,17 @@ namespace Dojo.UI
 			Browser.Navigate("https://dojo.code.ninja/stafflogin");
 			Browser.LoadCompleted += Browser_LoadCompleted;
 			BrowserProxy.OnData += OnScanIn;
+			hidden = new ObservableCollection<ScanInData>();
+			hideCard += card => hidden.Add(card);
+			RemovedLv.ItemsSource = hidden;
 		}
+
+		public static void HideCard(ScanInData c)
+		{
+			hideCard?.Invoke(c);
+		}
+
+		private static event Action<ScanInData> hideCard;
 
 		private void OnScanIn(ScanInData n)
 		{
@@ -85,6 +100,13 @@ namespace Dojo.UI
 					"eval",
 					eval);
 			});
+
+			foreach (var scanInData in hidden)
+			{
+				if (scanInData.MinutesLeft > -5) continue;
+				scanInData.Dispose();
+				hidden.Remove(scanInData);
+			}
 		}
 
 		private void ExitBtnClicked(object sender, RoutedEventArgs e)
@@ -95,6 +117,13 @@ namespace Dojo.UI
 		private void MinBtnClicked(object sender, RoutedEventArgs e)
 		{
 			WindowState = WindowState.Minimized;
+		}
+
+		private void RemovedLv_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var item = RemovedLv.SelectedItem as ScanInData;
+			hidden.Remove(item);
+			OnScanIn(item);
 		}
 	}
 }

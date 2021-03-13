@@ -19,6 +19,7 @@ namespace Dojo
 			Console.WriteLine("JS Error!");
 			Console.WriteLine(d?.message);
 		}
+
 		public void JSGotData(object d)
 		{
 			// deserialize JSON

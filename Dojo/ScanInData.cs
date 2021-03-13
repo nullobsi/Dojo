@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Timers;
 using System.Windows;
@@ -13,20 +12,7 @@ namespace Dojo
 	public class ScanInData : INotifyPropertyChanged, IDisposable
 	{
 		public static readonly Dictionary<string, BitmapImage> Belts;
-		static ScanInData()
-		{
-			Belts = new Dictionary<string, BitmapImage>();
-			string[] names = {"white", "yellow", "orange", "green", "blue", "purple", "brown", "red", "black"};
-			foreach (var beltName in names)
-			{
-				var img = new BitmapImage();
-				img.BeginInit();
-				img.UriSource = new Uri($"pack://application:,,,/Belts/{beltName}.png", UriKind.Absolute);
-				img.EndInit();
-				Belts[beltName] = img;
-			}
-		}
-		
+
 		// update left minutes
 		private readonly Timer    _timer;
 		private          TimeSpan _breakTime = TimeSpan.Zero;
@@ -47,6 +33,20 @@ namespace Dojo
 		public int    scanInSessionLength;
 		public int    totalHours;
 		public string userGuid;
+
+		static ScanInData()
+		{
+			Belts = new Dictionary<string, BitmapImage>();
+			string[] names = {"white", "yellow", "orange", "green", "blue", "purple", "brown", "red", "black"};
+			foreach (var beltName in names)
+			{
+				var img = new BitmapImage();
+				img.BeginInit();
+				img.UriSource = new Uri($"pack://application:,,,/Belts/{beltName}.png", UriKind.Absolute);
+				img.EndInit();
+				Belts[beltName] = img;
+			}
+		}
 
 
 		public ScanInData()
@@ -123,6 +123,11 @@ namespace Dojo
 			}
 
 			disposedValue = true;
+		}
+
+		public override string ToString()
+		{
+			return FullName;
 		}
 	}
 }
