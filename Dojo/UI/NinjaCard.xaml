@@ -57,7 +57,7 @@
                             FrameworkElement.VerticalAlignment="Bottom" FrameworkElement.Margin="36,0,0,24" Minimum="1"
                             MaxLength="2" Value="10" />
         <Label HorizontalAlignment="Left" Margin="126,116,0,0" VerticalAlignment="Top" Foreground="White"
-               FontSize="20" Content="{Binding ScanInData.BreakStatus}" Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
+               FontSize="20" Content="{Binding ScanInData.BreakLeftStr}" Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
         <Button Click="Close" x:Name="CloseBtn" Content="" HorizontalAlignment="Left" Margin="395,-3,0,0"
                 VerticalAlignment="Top" Style="{StaticResource BtnClose}" FontSize="0.01" Width="24"
                 RenderTransformOrigin="-1.298,0.653" IsCancel="true" Visibility="Hidden" />

@@ -57,6 +57,7 @@ namespace Dojo
 		}
 
 		public TimeSpan BreakStatus => _breakTime;
+		public string BreakLeftStr => _breakTime.ToString(@"mm\:ss");
 
 		public DateTime DateCreated => dateCreated;
 
@@ -80,6 +81,7 @@ namespace Dojo
 			_breakTime = TimeSpan.FromMinutes(minutes);
 			// update property
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
 			// stop existing timer if it exists
 			_breakTimer?.Stop();
 			_breakTimer = new DispatcherTimer(
@@ -95,6 +97,7 @@ namespace Dojo
 						_breakTimer.Stop();
 					// send property changed signal
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
 				},
 				Application.Current.Dispatcher);
 		}
@@ -109,6 +112,7 @@ namespace Dojo
 			_breakTimer?.Stop();
 			_breakTime = TimeSpan.Zero;
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
 		}
 
 		protected virtual void Dispose(bool disposing)
