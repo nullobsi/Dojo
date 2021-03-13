@@ -18,6 +18,8 @@ namespace Dojo.UI
 
 		public MainWindow()
 		{
+			// load all images (static constructor)
+			ScanInData.Belts["white"].GetType();
 			// change WebBrowser control to use latest version of IE
 			Registry.CurrentUser.OpenSubKey("SOFTWARE", true).CreateSubKey("Microsoft")
 			        .CreateSubKey("Internet Explorer")

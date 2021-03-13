@@ -28,5 +28,26 @@
     <Resource Include="UI\curve.png" />
     <None Remove="UI\bg.png" />
     <Resource Include="UI\bg.png" />
+    <None Remove="Belts\black.png" />
+    <Resource Include="Belts\black.png" />
+    <None Remove="Belts\blue.png" />
+    <Resource Include="Belts\blue.png" />
+    <None Remove="Belts\brown.png" />
+    <Resource Include="Belts\brown.png" />
+    <None Remove="Belts\green.png" />
+    <Resource Include="Belts\green.png" />
+    <None Remove="Belts\orange.png" />
+    <Resource Include="Belts\orange.png" />
+    <None Remove="Belts\purple.png" />
+    <Resource Include="Belts\purple.png" />
+    <None Remove="Belts\red.png" />
+    <Resource Include="Belts\red.png" />
+    <None Remove="Belts\white.png" />
+    <Resource Include="Belts\white.png" />
+    <None Remove="Belts\yellow.png" />
+    <Resource Include="Belts\yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Belts" />
   </ItemGroup>
 </Project>

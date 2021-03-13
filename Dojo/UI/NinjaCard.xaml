@@ -35,7 +35,7 @@
             <TranslateTransform x:Name="MainGridTransform" />
         </UIElement.RenderTransform>
         <Image HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="75" Margin="20,20,0,0"
-               Panel.ZIndex="1" Source="{Binding ScanInData.Image, Converter={StaticResource WPFBitmapConverter}}" />
+               Panel.ZIndex="1" Source="{Binding ScanInData.Image}" RenderOptions.BitmapScalingMode="HighQuality"/>
         <Rectangle Fill="White" HorizontalAlignment="Left" Height="96" Margin="10,10,0,0" VerticalAlignment="Top"
                    Width="400" RadiusX="5" RadiusY="5">
             <UIElement.BitmapEffect>

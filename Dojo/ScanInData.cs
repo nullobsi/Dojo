@@ -1,16 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Timers;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Dojo.Properties;
 
 namespace Dojo
 {
 	public class ScanInData : INotifyPropertyChanged, IDisposable
 	{
+		public static readonly Dictionary<string, BitmapImage> Belts;
+		static ScanInData()
+		{
+			Belts = new Dictionary<string, BitmapImage>();
+			string[] names = {"white", "yellow", "orange", "green", "blue", "purple", "brown", "red", "black"};
+			foreach (var beltName in names)
+			{
+				var img = new BitmapImage();
+				img.BeginInit();
+				img.UriSource = new Uri($"pack://application:,,,/Belts/{beltName}.png", UriKind.Absolute);
+				img.EndInit();
+				Belts[beltName] = img;
+			}
+		}
+		
 		// update left minutes
 		private readonly Timer    _timer;
 		private          TimeSpan _breakTime = TimeSpan.Zero;
@@ -49,35 +65,7 @@ namespace Dojo
 		public int MinutesLeft =>
 			(int) Math.Floor((dateCreated.AddHours(scanInSessionLength) - DateTime.Now).TotalMinutes);
 
-		public Bitmap Image
-		{
-			get
-			{
-				switch (beltName)
-				{
-					case "Black":
-						return Resources.BlackBelt;
-					case "Blue":
-						return Resources.BlueBelt;
-					case "Brown":
-						return Resources.BrownBelt;
-					case "Green":
-						return Resources.GreenBelt;
-					case "Orange":
-						return Resources.OrangeBelt;
-					case "Purple":
-						return Resources.PurpleBelt;
-					case "Red":
-						return Resources.RedBelt;
-					case "White":
-						return Resources.WhiteBelt;
-					case "Yellow":
-						return Resources.YellowBelt;
-					default:
-						return Resources.WhiteBelt;
-				}
-			}
-		}
+		public BitmapImage Image => Belts[beltName.ToLower()];
 
 		public void Dispose()
 		{
