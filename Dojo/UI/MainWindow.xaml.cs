@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Win32;
 
-namespace Dojo
+namespace Dojo.UI
 {
 	public partial class MainWindow
 	{
