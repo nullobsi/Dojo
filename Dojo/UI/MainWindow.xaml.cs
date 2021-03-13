@@ -79,7 +79,6 @@ namespace Dojo
 			{
 				var eval =
 					$"try{{window.$.get('https://dojo.code.ninja/api/employee/{_location}/scanins/420', '', function(data){{window.external.JSGotData(JSON.stringify(data.scanIns));}});}}catch(e){{window.external.JSGotError(e);}}";
-				Console.WriteLine(eval);
 				Browser.InvokeScript(
 					"eval",
 					eval);
