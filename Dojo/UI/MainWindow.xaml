@@ -73,10 +73,10 @@
         <Image Margin="0,75,0,375" Source="curve.png" Stretch="Fill" HorizontalAlignment="Center"
                VerticalAlignment="Top" Height="75" />
         <Rectangle Fill="White" Height="75" VerticalAlignment="Top" />
-        <Label Margin="0,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"
+        <Label Margin="0,16,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="36"
                RenderTransformOrigin="0.5,0.268"
-               Content="{Binding Now, Mode=OneWay, StringFormat=\{0:t\}, Source={StaticResource Ticker}}" />
+               Content="{Binding Now, Mode=OneWay, StringFormat=\{0:t\}, Source={StaticResource Ticker}}" FontFamily="{StaticResource AzoSans}" />
 
         <Button Style="{StaticResource MinBtn}" Margin="0,25,60,0" VerticalAlignment="Top" HorizontalAlignment="Right"
                 Click="MinBtnClicked" />

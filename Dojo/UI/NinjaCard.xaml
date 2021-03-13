@@ -42,22 +42,22 @@
         </Rectangle>
         <Rectangle x:Name="BottomRect" Fill="#FF0D1039" HorizontalAlignment="Center" Height="79" Margin="0,76,0,0"
                    RadiusY="5" RadiusX="5" VerticalAlignment="Top" Width="372" Panel.ZIndex="-1" />
-        <Label HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" FontSize="26"
+        <Label HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="26"
                Foreground="#FF506690" FontWeight="Bold" Content="{Binding Path=ScanInData.FullName}"
-               Background="{x:Null}" />
-        <Label ContentStringFormat="h:mm tt" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top"
+               Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
+        <Label ContentStringFormat="h:mm tt" HorizontalAlignment="Center" Margin="0,65,0,0" VerticalAlignment="Top"
                FontSize="20" Foreground="#FF506690" Content="{Binding Path=ScanInData.DateCreated}"
-               Background="{x:Null}" />
-        <Label x:Name="MinutesLeftLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,25,0"
+               Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
+        <Label x:Name="MinutesLeftLabel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,25,25,0"
                Foreground="#FF506690" FontSize="50" FontWeight="Bold" Content="{Binding Path=ScanInData.MinutesLeft}"
-               Background="{x:Null}" />
+               Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
         <Button Click="StartBreak" x:Name="StartButton" Content="Start" HorizontalAlignment="Left"
                 Margin="82,121,0,0" VerticalAlignment="Top" Width="39" />
         <xctk:IntegerUpDown x:Name="IntInput" FrameworkElement.HorizontalAlignment="Left"
                             FrameworkElement.VerticalAlignment="Bottom" FrameworkElement.Margin="36,0,0,24" Minimum="1"
                             MaxLength="2" Value="10" />
-        <Label HorizontalAlignment="Left" Margin="126,111,0,0" VerticalAlignment="Top" Foreground="White"
-               FontSize="20" Content="{Binding ScanInData.BreakStatus}" Background="{x:Null}" />
+        <Label HorizontalAlignment="Left" Margin="126,116,0,0" VerticalAlignment="Top" Foreground="White"
+               FontSize="20" Content="{Binding ScanInData.BreakStatus}" Background="{x:Null}" FontFamily="{StaticResource AzoSans}"/>
         <Button Click="Close" x:Name="CloseBtn" Content="" HorizontalAlignment="Left" Margin="395,-3,0,0"
                 VerticalAlignment="Top" Style="{StaticResource BtnClose}" FontSize="0.01" Width="24"
                 RenderTransformOrigin="-1.298,0.653" IsCancel="true" Visibility="Hidden" />
