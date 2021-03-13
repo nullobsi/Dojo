@@ -71,19 +71,18 @@ namespace Dojo
 			};
 			_timer.Elapsed += FetchDataPeriodically;
 			_timer.Start();
-			// fetch initial data
-			Browser.InvokeScript(
-				"eval",
-				$"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
 		}
 
 		private void FetchDataPeriodically(object sender, ElapsedEventArgs e)
 		{
 			Dispatcher.BeginInvoke((Action) delegate
 			{
+				var eval =
+					$"try{{window.$.get('https://dojo.code.ninja/api/employee/{_location}/scanins/420', '', function(data){{window.external.JSGotData(JSON.stringify(data.scanIns));}});}}catch(e){{window.external.JSGotError(e);}}";
+				Console.WriteLine(eval);
 				Browser.InvokeScript(
 					"eval",
-					$"$.get(\"https://dojo.code.ninja/api/employee/{_location}/scanins/420\",\"\",function(data){{ window.external.JSGotData(JSON.stringify(data.scanIns)) }})");
+					eval);
 			});
 		}
 	}
