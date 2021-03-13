@@ -85,5 +85,15 @@ namespace Dojo
 					eval);
 			});
 		}
+
+		private void ExitBtnClicked(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		private void MinBtnClicked(object sender, RoutedEventArgs e)
+		{
+			WindowState = WindowState.Minimized;
+		}
 	}
 }

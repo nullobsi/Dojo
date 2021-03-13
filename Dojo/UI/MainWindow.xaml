@@ -1,29 +1,82 @@
-<Window x:Class="Dojo.MainWindow"
+<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:Dojo"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="Dojo.MainWindow"
         Title="Dojo Login" Height="540" Width="960">
     <Window.Resources>
         <local:Ticker x:Key="Ticker" />
+        <Style x:Key="MinBtn" TargetType="{x:Type Button}">
+            <Setter Property="Control.Background" Value="Transparent"/>
+            <Setter Property="UIElement.SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter x:Name="ContentPres" Content="{TemplateBinding ContentControl.Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Path x:Name="MinPath2" SnapsToDevicePixels="true" ToolTip="Minimize" Width="18"
+                                  Height="18"
+                                  Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  Stretch="Fill"
+                                  Fill="#fff"
+                                  Data="F1 M 0,0 L 1,0 1,1 0,1  Z" />
+                            <Path x:Name="ClosePath" SnapsToDevicePixels="true" ToolTip="Minimize" Width="18"
+                                  Height="4"
+                                  Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  Stretch="Fill"
+                                  Fill="#aaaaaa"
+                                  Data="F1 M 0,0 L 1,0 1,1 0,1  Z" />
+                            
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="XBtn" TargetType="{x:Type Button}">
+            <Setter Property="Control.Background" Value="Transparent" />
+            <Setter Property="UIElement.SnapsToDevicePixels" Value="true" />
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter x:Name="ContentPres" Content="{TemplateBinding ContentControl.Content}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Path x:Name="ClosePath" SnapsToDevicePixels="true" ToolTip="Exit" Width="18"
+                                  Height="18"
+                                  Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  Stretch="Fill"
+                                  Fill="#aaaaaa"
+                                  Data="F1 M 26.9166,22.1667 L 37.9999,33.25 49.0832,22.1668 53.8332,26.9168 42.7499,38 53.8332,49.0834 49.0833,53.8334 37.9999,42.75 26.9166,53.8334 22.1666,49.0833 33.25,38 22.1667,26.9167 26.9166,22.1667 Z" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    <Control.Background>
+    <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF5830D7" Offset="0" />
             <GradientStop Color="#FF338FBF" Offset="0.68" />
         </LinearGradientBrush>
-    </Control.Background>
+    </Window.Background>
     <Grid x:Name="MainGrid">
-        <WebBrowser x:Name="Browser" Margin="0,0,0,0.5" />
+        <WebBrowser x:Name="Browser" Margin="0,0,0,0.5" av:IsHidden="True" />
+        <Image Margin="0" Source="bg.png" RenderTransformOrigin="0.5,1" Stretch="Fill" />
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <local:AlignableWrapPanel x:Name="MainWrapPanel" Margin="0,150,0,0" HorizontalAlignment="Center"
+                                      VerticalAlignment="Top"
+                                      HorizontalContentAlignment="Center" />
+        </ScrollViewer>
         <Image Margin="0,75,0,375" Source="curve.png" Stretch="Fill" HorizontalAlignment="Center"
                VerticalAlignment="Top" Height="75" />
         <Rectangle Fill="White" Height="75" VerticalAlignment="Top" />
         <Label Margin="0,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="36"
                RenderTransformOrigin="0.5,0.268"
-               Content="{Binding Path=Now, Mode=OneWay, Source={StaticResource Ticker}, StringFormat={}{0:t}}" />
-        <Image Margin="0" Source="bg.png" RenderTransformOrigin="0.5,1" Stretch="Fill" />
-        <local:AlignableWrapPanel x:Name="MainWrapPanel" Margin="0,150,0,0" HorizontalAlignment="Center"
-                                  VerticalAlignment="Top"
-                                  HorizontalContentAlignment="Center" />
+               Content="{Binding Now, Mode=OneWay, StringFormat=\{0:t\}, Source={StaticResource Ticker}}" />
+
+        <Button  Style="{StaticResource MinBtn}" Margin="0,25,60,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="MinBtnClicked"/>
+        <Button  Style="{StaticResource XBtn}" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ExitBtnClicked"/>
     </Grid>
 </Window>
