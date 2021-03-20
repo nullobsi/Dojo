@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace Dojo
+namespace DojoCommon
 {
 	public class ScanInData : INotifyPropertyChanged, IDisposable
 	{
@@ -19,12 +19,14 @@ namespace Dojo
 
 		// break time
 		private DispatcherTimer _breakTimer;
-		public  string          beltName;
-		public  DateTime        dateCreated;
-		private bool            disposedValue;
-		public  string          firstName;
-		public  bool            hasBirthdayToday;
-		public  int             jrTotalMins;
+
+		// internal state
+		public  string   beltName;
+		public  DateTime dateCreated;
+		private bool     disposedValue;
+		public  string   firstName;
+		public  bool     hasBirthdayToday;
+		public  int      jrTotalMins;
 
 		// json properties
 		public long   key;
@@ -42,31 +44,45 @@ namespace Dojo
 			{
 				var img = new BitmapImage();
 				img.BeginInit();
-				img.UriSource = new Uri($"pack://application:,,,/Belts/{beltName}.png", UriKind.Absolute);
+				img.UriSource = new Uri($"pack://application:,,,/DojoCommon;component/Belts/{beltName}.png",
+				                        UriKind.Absolute);
 				img.EndInit();
 				Belts[beltName] = img;
 			}
 		}
 
-
 		public ScanInData()
 		{
 			_timer = new Timer(1000.0) {AutoReset = true};
-			_timer.Elapsed += Timer_Elapsed;
+			_timer.Elapsed += Update;
 			_timer.Start();
 		}
 
+		public ScanInData(NinjaData i)
+		{
+			firstName = i.FirstName;
+			lastName = i.LastName;
+			dateCreated = i.CreatedAt;
+			beltName = i.BeltName;
+			scanInSessionLength = i.SessionLength;
+			userGuid = i.UserGuid;
+		}
+
+		// Break Status
 		public TimeSpan BreakStatus => _breakTime;
 		public string BreakLeftStr => _breakTime.ToString(@"mm\:ss");
 
+		// Information fields
 		public DateTime DateCreated => dateCreated;
-
 		public string FullName => firstName + " " + lastName.FirstOrDefault() + ".";
+		public BitmapImage Image => Belts[beltName.ToLower()];
 
+		// Time Remaining
 		public int MinutesLeft =>
 			(int) Math.Floor((dateCreated.AddHours(scanInSessionLength) - DateTime.Now).TotalMinutes);
 
-		public BitmapImage Image => Belts[beltName.ToLower()];
+		public ScanInState State { get; private set; } = ScanInState.Normal;
+
 
 		public void Dispose()
 		{
@@ -79,9 +95,12 @@ namespace Dojo
 		{
 			// break time left
 			_breakTime = TimeSpan.FromMinutes(minutes);
+			// update state
+			State = ScanInState.OnBreak;
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
 			// update property
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakStatus)));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakLeftStr)));
 			// stop existing timer if it exists
 			_breakTimer?.Stop();
 			_breakTimer = new DispatcherTimer(
@@ -94,25 +113,38 @@ namespace Dojo
 					_breakTime = _breakTime.Add(TimeSpan.FromSeconds(-1.0));
 					// stop timer if no time left
 					if (_breakTime == TimeSpan.Zero)
+					{
 						_breakTimer.Stop();
+						// update state
+						State = ScanInState.Alert;
+						PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+					}
+
 					// send property changed signal
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakStatus)));
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakLeftStr)));
 				},
 				Application.Current.Dispatcher);
 		}
 
-		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+		private void Update(object sender, ElapsedEventArgs e)
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MinutesLeft"));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MinutesLeft)));
+			if (State == ScanInState.Normal && MinutesLeft <= 5)
+			{
+				State = ScanInState.Finishing;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
+			}
 		}
 
 		public void StopBreak()
 		{
 			_breakTimer?.Stop();
 			_breakTime = TimeSpan.Zero;
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakStatus"));
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BreakLeftStr"));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakStatus)));
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BreakLeftStr)));
+			State = MinutesLeft <= 5 ? ScanInState.Finishing : ScanInState.Normal;
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(State)));
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -133,5 +165,13 @@ namespace Dojo
 		{
 			return FullName;
 		}
+	}
+
+	public enum ScanInState
+	{
+		Normal,
+		OnBreak,
+		Alert,
+		Finishing
 	}
 }

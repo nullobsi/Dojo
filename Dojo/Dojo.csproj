@@ -19,47 +19,21 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CoreWCF.Http" Version="0.1.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
+    <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.8.1" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="UI\curve.png" />
     <Resource Include="UI\curve.png" />
     <None Remove="UI\bg.png" />
     <Resource Include="UI\bg.png" />
-    <None Remove="Belts\black.png" />
-    <Resource Include="Belts\black.png" />
-    <None Remove="Belts\blue.png" />
-    <Resource Include="Belts\blue.png" />
-    <None Remove="Belts\brown.png" />
-    <Resource Include="Belts\brown.png" />
-    <None Remove="Belts\green.png" />
-    <Resource Include="Belts\green.png" />
-    <None Remove="Belts\orange.png" />
-    <Resource Include="Belts\orange.png" />
-    <None Remove="Belts\purple.png" />
-    <Resource Include="Belts\purple.png" />
-    <None Remove="Belts\red.png" />
-    <Resource Include="Belts\red.png" />
-    <None Remove="Belts\white.png" />
-    <Resource Include="Belts\white.png" />
-    <None Remove="Belts\yellow.png" />
-    <Resource Include="Belts\yellow.png" />
-    <None Remove="Fonts\AzoSans-Black.otf" />
-    <Resource Include="Fonts\AzoSans-Black.otf" />
-    <None Remove="Fonts\AzoSans-Bold.otf" />
-    <Resource Include="Fonts\AzoSans-Bold.otf" />
-    <None Remove="Fonts\AzoSans-Medium.otf" />
-    <Resource Include="Fonts\AzoSans-Medium.otf" />
-    <None Remove="Fonts\AzoSans-Regular.otf" />
-    <Resource Include="Fonts\AzoSans-Regular.otf" />
-    <None Remove="Fonts\AzoSans-Thin.otf" />
-    <Resource Include="Fonts\AzoSans-Thin.otf" />
-    <None Remove="Fonts\TypoGraphica.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Belts" />
-    <Folder Include="Fonts" />
+    <ProjectReference Include="..\DojoCommon\DojoCommon.csproj" />
   </ItemGroup>
 </Project>

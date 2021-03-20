@@ -1,8 +1,8 @@
-﻿<Application x:Class="Dojo.App"
+﻿<Application x:Class="DojoClient.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="UI/MainWindow.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <FontFamily x:Key="AzoSans">pack://application:,,,/DojoCommon;component/Fonts/#Azo Sans</FontFamily>
+
     </Application.Resources>
 </Application>

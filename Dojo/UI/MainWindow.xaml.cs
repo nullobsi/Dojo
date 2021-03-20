@@ -6,20 +6,25 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using Dojo.RPC;
+using DojoCommon;
+using DojoCommon.UI;
 using Microsoft.Win32;
 
 namespace Dojo.UI
 {
 	public partial class MainWindow
 	{
+		// removed cards
+		private readonly ObservableCollection<ScanInData> hidden;
+
 		// code ninjas location
 		private string _location;
 
+		private Server _server;
+
 		// keep pinging for data
 		private Timer _timer;
-
-		// removed cards
-		private readonly ObservableCollection<ScanInData> hidden;
 
 		public MainWindow()
 		{
@@ -39,16 +44,10 @@ namespace Dojo.UI
 			Browser.LoadCompleted += Browser_LoadCompleted;
 			BrowserProxy.OnData += OnScanIn;
 			hidden = new ObservableCollection<ScanInData>();
-			hideCard += card => hidden.Add(card);
+			NinjaCard.hideCard += card => hidden.Add(card);
 			RemovedLv.ItemsSource = hidden;
+			_server = new Server();
 		}
-
-		public static void HideCard(ScanInData c)
-		{
-			hideCard?.Invoke(c);
-		}
-
-		private static event Action<ScanInData> hideCard;
 
 		private void OnScanIn(ScanInData n)
 		{
