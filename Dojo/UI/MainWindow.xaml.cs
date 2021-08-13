@@ -26,12 +26,13 @@ namespace Dojo.UI
 			// load all images (static constructor)
 			ScanInData.Belts["white"].GetType();
 			// change WebBrowser control to use latest version of IE
-			Registry.CurrentUser.OpenSubKey("SOFTWARE", true).CreateSubKey("Microsoft")
+			var regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE", true).CreateSubKey("Microsoft")
 			        .CreateSubKey("Internet Explorer")
 			        .CreateSubKey("Main")
 			        .CreateSubKey("FeatureControl")
-			        .CreateSubKey("FEATURE_BROWSER_EMULATION")
-			        .SetValue(AppDomain.CurrentDomain.FriendlyName, 11001, RegistryValueKind.DWord);
+			        .CreateSubKey("FEATURE_BROWSER_EMULATION");
+			regKey.SetValue(AppDomain.CurrentDomain.FriendlyName, 11001, RegistryValueKind.DWord);
+			regKey.SetValue(AppDomain.CurrentDomain.FriendlyName + ".exe", 11001, RegistryValueKind.DWord);
 			InitializeComponent();
 			// log in to Dojo
 			Browser.Navigated += Browser_Navigated;
