@@ -91,7 +91,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Publish
-      run: dotnet publish $env:Solution_Name -c $env:Configuration
+      run: dotnet publish $env:Solution_Name -c $env:Configuration -r win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true --self-contained true
       env:
         Configuration: ${{ matrix.configuration }}
 
