@@ -98,5 +98,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: MSIX Package
+        name: Windows Executable
         path: Dojo\bin\${{matrix.configuration}}\net5.0-windows\win10-x64\publish
