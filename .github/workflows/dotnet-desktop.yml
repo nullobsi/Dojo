@@ -83,15 +83,15 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: dotnet restore Dojo/Dojo.csproj -r win10-x64
+      run: dotnet restore Dojo/Dojo.csproj
         
     - name: Build
-      run: dotnet build $env:Solution_Name -c $env:Configuration -r win10-x64 -f net5.0
+      run: dotnet build $env:Solution_Name -c $env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
     - name: Publish
-      run: dotnet publish $env:Solution_Name -c $env:Configuration -f net5.0 -r win10-x64 --self-contained false
+      run: dotnet publish $env:Solution_Name -c $env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -99,4 +99,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: MSIX Package
-        path: Dojo\bin\${{matrix.configuration}}\net5.0\win10-x64\publish
+        path: Dojo\bin\${{matrix.configuration}}\net5.0-windows\win10-x64\publish
