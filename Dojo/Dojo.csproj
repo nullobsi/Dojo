@@ -5,13 +5,13 @@
     <AssemblyName>Dojo</AssemblyName>
     <LangVersion>8</LangVersion>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ApplicationVersion>1.0.2.0</ApplicationVersion>
     <FileAlignment>512</FileAlignment>
     <RootNamespace>Dojo</RootNamespace>
     <Company>Code Ninjas</Company>
     <Product>Dojo</Product>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
     <UseWPF>true</UseWPF>
     
     <PublishSingleFile>true</PublishSingleFile>
