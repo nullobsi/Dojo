@@ -53,7 +53,13 @@ namespace Dojo.UI
 
 		private void OnScanIn(ScanInData n)
 		{
-			MainWrapPanel.Children.Add(new NinjaCard(n));
+			int i;
+			for (i = 0; i < MainWrapPanel.Children.Count; i++)
+			{
+				NinjaCard card = (NinjaCard)MainWrapPanel.Children[i];
+				if (card.ScanInData.MinutesLeft > n.MinutesLeft) break;
+			}
+			MainWrapPanel.Children.Insert(i, new NinjaCard(n));
 		}
 
 		private void HideScriptErrors(WebBrowser wb)
