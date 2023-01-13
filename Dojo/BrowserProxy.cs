@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -30,6 +30,12 @@ namespace Dojo
 				// do not add redundant data
 				if (j.MinutesLeft < 0 || ScanIns.Any(i => i.key == j.key))
 				{
+					var a = ScanIns.Find(i => i.key == j.key);
+					if (a != null)
+                    {
+						a.dateCreated = j.dateCreated;
+						a.scanInSessionLength = j.scanInSessionLength;
+					}
 					j.Dispose();
 					continue;
 				}
